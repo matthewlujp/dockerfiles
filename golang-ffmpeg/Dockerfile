@@ -2,9 +2,8 @@ FROM golang:1.10beta2-alpine
 MAINTAINER Matthew Lu <matthewlujp@gmail.com>
 
 RUN apk update
-RUN apk add --no-cache git
-RUN apk add --no-cache --virtual=build-dependencies build-base curl nasm tar bzip2 zlib-dev libressl-dev yasm-dev lame-dev \
-  libogg-dev x264-dev libvpx-dev libvorbis-dev x265-dev freetype-dev libass-dev libwebp-dev rtmpdump-dev libtheora-dev opus-dev
+RUN apk add --no-cache zlib-dev libressl-dev yasm-dev lame-dev libogg-dev libvpx-dev libvorbis-dev x264-dev x265-dev freetype-dev libass-dev libwebp-dev rtmpdump-dev libtheora-dev opus-dev
+RUN apk add --no-cache --virtual=build-dependencies git build-base curl nasm tar bzip2
 
 RUN cd /tmp && \
   git clone https://github.com/FFmpeg/FFmpeg.git && \
@@ -18,5 +17,4 @@ RUN cd /tmp && \
   cd .. && \
   rm -rf FFmpeg
 
-RUN apk del git
 RUN apk del build-dependencies
